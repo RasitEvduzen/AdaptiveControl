@@ -97,7 +97,7 @@ for i = 2:length(t)
         legend('Adaptive Control', 'Without Adaptive Control');
         xlabel('Time (s)'); ylabel('Control Input u(t)');
         title('Control Input Comparison');
-        sgtitle('Intidrect MRAC Simulation'); 
+        sgtitle('Indirect MRAC Simulation'); 
         drawnow
     end
 end
