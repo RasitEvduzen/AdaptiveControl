@@ -3,8 +3,8 @@
 % Date: 25-Jan-2025
 clc,clear,close all;
 %% System Parameters (True and Reference Model)
-a = 4; b = 2; theta = 0.8;  % True system parameters (unknown)
-am = -2; bm = 2;            % Reference model parameters
+a = 3; b = 5; theta = 0.2;  % True system parameters (known except theta)
+am = -1; bm = 4;            % Reference model parameters
 
 %% Simulation Parameters
 Ts = 1e-2;                   % Time step
