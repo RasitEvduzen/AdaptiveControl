@@ -37,7 +37,6 @@ kr_true = bm / b;
 
 %% Simulation Loop
 figure('units', 'normalized', 'outerposition', [0 0 1 1], 'color', 'w')
-gif('IndirectMRAC.gif')
 for i = 2:length(t)
     if (i*Ts) > 25
         r(i) = cos(i*Ts);
@@ -100,7 +99,6 @@ for i = 2:length(t)
         title('Control Input Comparison');
         sgtitle('Intidrect MRAC Simulation'); 
         drawnow
-        gif
     end
 end
 
