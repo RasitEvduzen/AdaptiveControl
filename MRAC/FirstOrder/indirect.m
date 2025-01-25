@@ -9,9 +9,9 @@ am = -2; bm = 2;            % Reference model parameters
 %% Simulation Parameters
 Ts = 1e-2;                   % Time step
 t = 0:Ts:50;                 % Simulation time 
-r = zeros(length(t),1);      % Input signal (initially zero)
-% r(t > 0.5) = sin(t(t > 0.5)); % Sinusoidal input after 0.5 second
-r(t > 1) = square(t(t > 1));    % Square input after 1 second
+ref = zeros(length(t),1);      % Input signal (initially zero)
+% ref(t > 0.5) = sin(t(t > 0.5)); % Sinusoidal input after 0.5 second
+ref(t > 1) = square(t(t > 1));    % Square input after 1 second
 
 % Initial conditions
 x_ref = zeros(length(t),1); % Reference model state
@@ -39,13 +39,13 @@ kr_true = bm / b;
 figure('units', 'normalized', 'outerposition', [0 0 1 1], 'color', 'w')
 for i = 2:length(t)
     if (i*Ts) > 25
-        r(i) = cos(i*Ts);
+        ref(i) = cos(i*Ts);
     end
     % Control Law
     kx = (am - a_est(i-1)) / b_est(i-1);
     kr = bm / b_est(i-1);
-    u(i-1) = kx * x(i-1) + kr * r(i-1) - theta_est(i-1) * x(i-1);
-    u_no_adapt(i-1) = kx_true * x_no_adapt(i-1) + kr_true * r(i-1);
+    u(i-1) = kx * x(i-1) + kr * ref(i-1) - theta_est(i-1) * x(i-1);
+    u_no_adapt(i-1) = kx_true * x_no_adapt(i-1) + kr_true * ref(i-1);
 
     % Adaptive Parameter Update
     e = x_ref(i-1) - x(i-1);
@@ -61,7 +61,7 @@ for i = 2:length(t)
     theta_dot = -gamma_theta * x(i-1) * e * sign(b);
     
     % System Dynamics
-    xdot_ref = am * x_ref(i-1) + bm * r(i-1);
+    xdot_ref = am * x_ref(i-1) + bm * ref(i-1);
     xdot = a * x(i-1) + b * u(i-1) + b * theta * x(i-1);
     xdot_no_adapt = a * x_no_adapt(i-1) + b * u_no_adapt(i-1) + b * theta * x_no_adapt(i-1);
     
